@@ -18,6 +18,10 @@ fn brute_force_hashcode() -> &'static str {
 
 pub struct Cors;
 
+/// All hail stack overflow for this solution, if it works:
+/// 
+/// https://stackoverflow.com/questions/62412361/how-to-set-up-cors-or-options-for-rocket-rs
+/// 
 #[rocket::async_trait]
 impl Fairing for Cors {
     fn info(&self) -> Info {
