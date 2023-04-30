@@ -1,5 +1,6 @@
 use rocket::fairing::{ Fairing, Info, Kind };
 use rocket::http::Header;
+use rocket::response::Responder;
 use rocket::{ Request, Response };
 
 #[macro_use] extern crate rocket;
@@ -12,8 +13,27 @@ fn rocket() -> _ {
 }
 
 #[get("/BruteForceHashcode")]
-fn brute_force_hashcode() -> &'static str {
-    "got it!"
+fn brute_force_hashcode() -> BruteForceHashcodeResponse {
+    let bf = BruteForceHashcodeResponse {
+        result_found: Some(String::from("a response")),
+    };
+
+    bf
+}
+
+struct BruteForceHashcodeRequest {
+    hashcode: String,
+    max_len: u32,
+    include_digits: bool,
+    include_lower_case: bool,
+    include_upper_case: bool,
+    include_punctuation: bool,
+    include_white_space: bool,
+}
+
+#[derive(Responder)]
+struct BruteForceHashcodeResponse {
+    result_found: Option<String>,
 }
 
 pub struct Cors;
